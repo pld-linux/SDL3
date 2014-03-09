@@ -7,6 +7,8 @@
 %bcond_with	esd		# EsounD audio support
 %bcond_without	gl		# OpenGL (GLX) support
 %bcond_without	gles		# OpenGL ES (EGL) support
+%bcond_with	mir		# Mir graphics support [BR: libmirclient]
+%bcond_with	wayland		# Wayland graphics support
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	mmx		# MMX instructions
 %bcond_with	sse		# SSE instructions
@@ -15,13 +17,17 @@
 %bcond_with	altivec		# Altivec instructions
 #
 # NOTE: the following libraries are dlopened by soname detected at build time:
-# libartsc.so.?		[if with arts]
-# libasound.so.2	[if with alsa]
-# libaudio.so.2		[if with nas]
+# libartsc.so.?			[if with arts]
+# libasound.so.2		[if with alsa]
+# libaudio.so.2			[if with nas]
 # libdirectfb-*.so --needs patch (-release not supported by configure)
-# libesd.so.0		[if with esd]
+# libesd.so.0			[if with esd]
 # libfusionsound-*.so --needs patch (-release not supported by configure)
 # libpulse-simple.so.0
+# libwayland-client.so.0	[if with wayland]
+# libwayland-cursor.so.0	[if with wayland]
+# libwayland-egl.so.1		[if with wayland]
+# libxkbcommon.so.0		[if with wayland]
 # libX11.so.6
 # libXcursor.so.1
 # libXext.so.6
@@ -47,14 +53,15 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.1
+Version:	2.0.2
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	0eb97039488bf463e775295f7b18b227
+# Source0-md5:	e8070e8b6335def073a80cee78f3a7f0
 Patch0:		%{name}-config.patch
 URL:		http://www.libsdl.org/
+%{?with_wayland:BuildRequires:	Mesa-libwayland-egl-devel}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
 %{?with_directfb:BuildRequires:	FusionSound-devel >= 1.1.1}
 %{?with_gl:BuildRequires:	OpenGL-GLX-devel}
@@ -73,6 +80,8 @@ BuildRequires:	pkgconfig >= 1:0.7
 BuildRequires:	pulseaudio-devel >= 0.9
 BuildRequires:	tslib-devel
 BuildRequires:	udev-devel
+# wayland-client, wayland-cursor
+%{?with_wayland:BuildRequires:	wayland-devel}
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
 BuildRequires:	xorg-lib-libXcursor-devel
@@ -82,6 +91,7 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
+%{?with_wayland:BuildRequires:	xorg-lib-libxkbcommon-devel}
 BuildRequires:	xorg-proto-xextproto-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -207,8 +217,10 @@ SDL - przykładowe programy.
 	%{?with_sse:--enable-ssemath} \
 	%{!?with_static_libs:--disable-static} \
 	%{!?with_directfb:--disable-video-directfb} \
+	%{?with_mir:--enable-video-mir} \
 	--enable-video-opengl%{!?with_opengl:=no} \
 	--enable-video-opengles%{!?with_gles:=no} \
+	%{?with_wayland:--enable-video-wayland} \
 	--with-x
 
 %{__make}
