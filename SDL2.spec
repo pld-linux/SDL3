@@ -7,7 +7,7 @@
 %bcond_with	esd		# EsounD audio support
 %bcond_without	gl		# OpenGL (GLX) support
 %bcond_without	gles		# OpenGL ES (EGL) support
-%bcond_with	mir		# Mir graphics support [BR: libmirclient]
+%bcond_with	mir		# Mir graphics support
 %bcond_with	wayland		# Wayland graphics support
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	mmx		# MMX instructions
@@ -23,11 +23,12 @@
 # libdirectfb-*.so --needs patch (-release not supported by configure)
 # libesd.so.0			[if with esd]
 # libfusionsound-*.so --needs patch (-release not supported by configure)
+# libmirclient.so.7		[if with mir]
 # libpulse-simple.so.0
 # libwayland-client.so.0	[if with wayland]
 # libwayland-cursor.so.0	[if with wayland]
 # libwayland-egl.so.1		[if with wayland]
-# libxkbcommon.so.0		[if with wayland]
+# libxkbcommon.so.0		[if with wayland or mir]
 # libX11.so.6
 # libXcursor.so.1
 # libXext.so.6
@@ -53,12 +54,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.2
+Version:	2.0.3
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	e8070e8b6335def073a80cee78f3a7f0
+# Source0-md5:	fe6c61d2e9df9ef570e7e80c6e822537
 Patch0:		%{name}-config.patch
 URL:		http://www.libsdl.org/
 %{?with_wayland:BuildRequires:	Mesa-libwayland-egl-devel}
@@ -74,6 +75,7 @@ BuildRequires:	dbus-devel
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	gcc >= 5:4.0
 BuildRequires:	libtool >= 2:2.0
+%{?with_mir:BuildRequires:	mir-devel}
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	perl-modules
 BuildRequires:	pkgconfig >= 1:0.7
@@ -91,7 +93,9 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
-%{?with_wayland:BuildRequires:	xorg-lib-libxkbcommon-devel}
+%if %{with mir} || %{with wayland}
+BuildRequires:	xorg-lib-libxkbcommon-devel
+%endif
 BuildRequires:	xorg-proto-xextproto-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
