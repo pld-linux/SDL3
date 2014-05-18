@@ -61,6 +61,7 @@ Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
 # Source0-md5:	fe6c61d2e9df9ef570e7e80c6e822537
 Patch0:		%{name}-config.patch
+Patch1:		%{name}-cflags.patch
 URL:		http://www.libsdl.org/
 %{?with_wayland:BuildRequires:	Mesa-libwayland-egl-devel}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
@@ -200,6 +201,7 @@ SDL - przykładowe programy.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
