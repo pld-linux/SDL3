@@ -55,7 +55,7 @@ Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimedi
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
 Version:	2.0.3
-Release:	2
+Release:	3
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
@@ -224,7 +224,7 @@ SDL - przykładowe programy.
 	%{!?with_static_libs:--disable-static} \
 	%{!?with_directfb:--disable-video-directfb} \
 	%{?with_mir:--enable-video-mir} \
-	--enable-video-opengl%{!?with_opengl:=no} \
+	--enable-video-opengl%{!?with_gl:=no} \
 	--enable-video-opengles%{!?with_gles:=no} \
 	%{?with_wayland:--enable-video-wayland} \
 	--with-x
