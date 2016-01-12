@@ -8,7 +8,7 @@
 %bcond_without	gl		# OpenGL (GLX) support
 %bcond_without	gles		# OpenGL ES (EGL) support
 %bcond_with	mir		# Mir graphics support
-%bcond_with	wayland		# Wayland graphics support
+%bcond_without	wayland		# Wayland graphics support
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	mmx		# MMX instructions
 %bcond_with	sse		# SSE instructions
@@ -54,12 +54,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.3
-Release:	3
+Version:	2.0.4
+Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	fe6c61d2e9df9ef570e7e80c6e822537
+# Source0-md5:	44fc4a023349933e7f5d7a582f7b886e
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-cflags.patch
 URL:		http://www.libsdl.org/
@@ -223,13 +223,14 @@ SDL - przykładowe programy.
 	%{?with_sse:--enable-ssemath} \
 	%{!?with_static_libs:--disable-static} \
 	%{!?with_directfb:--disable-video-directfb} \
-	%{?with_mir:--enable-video-mir} \
+	--enable-video-mir%{!?with_mir:=no} \
 	--enable-video-opengl%{!?with_gl:=no} \
 	--enable-video-opengles%{!?with_gles:=no} \
-	%{?with_wayland:--enable-video-wayland} \
+	--enable-video-wayland%{!?with_wayland:=no} \
 	--with-x
 
-%{__make}
+%{__make} \
+	V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -264,6 +265,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL2
 %{_aclocaldir}/sdl2.m4
 %{_pkgconfigdir}/sdl2.pc
+%{_libdir}/cmake/SDL2
 
 %if %{with static_libs}
 %files static
