@@ -1,3 +1,4 @@
+# TODO: fcitx
 #
 # Conditional build:
 %bcond_with	directfb	# DirectFB graphics support
@@ -5,9 +6,12 @@
 %bcond_without	alsa		# ALSA audio support
 %bcond_with	arts		# aRts audio support
 %bcond_with	esd		# EsounD audio support
+%bcond_with	jack		# JACK audio support
 %bcond_without	gl		# OpenGL (GLX) support
 %bcond_without	gles		# OpenGL ES (EGL) support
+%bcond_with	kms		# KMS/DRM graphics support
 %bcond_with	mir		# Mir graphics support
+%bcond_without	vulkan		# Vulkan graphics support
 %bcond_without	wayland		# Wayland graphics support
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	mmx		# MMX instructions
@@ -21,10 +25,14 @@
 # libasound.so.2		[if with alsa]
 # libaudio.so.2			[if with nas]
 # libdirectfb-*.so --needs patch (-release not supported by configure)
+# libdrm.so.2			[if with kms]
 # libesd.so.0			[if with esd]
 # libfusionsound-*.so --needs patch (-release not supported by configure)
-# libmirclient.so.7		[if with mir]
+# libgbm.so.1			[if with kms]
+# libjack.so.0			[if with jack]
+# libmirclient.so.9		[if with mir]
 # libpulse-simple.so.0
+# libsamplerate.so.0
 # libwayland-client.so.0	[if with wayland]
 # libwayland-cursor.so.0	[if with wayland]
 # libwayland-egl.so.1		[if with wayland]
@@ -63,6 +71,7 @@ Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-cflags.patch
 URL:		http://www.libsdl.org/
+%{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 9.0.0}
 %{?with_wayland:BuildRequires:	Mesa-libwayland-egl-devel}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
 %{?with_directfb:BuildRequires:	FusionSound-devel >= 1.1.1}
@@ -75,8 +84,12 @@ BuildRequires:	automake
 BuildRequires:	dbus-devel
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	gcc >= 5:4.0
+BuildRequires:	ibus-devel >= 1.0
+%{?with_jack:BuildRequires:	jack-audio-connection-kit-devel >= 0.125}
+%{?with_kms:BuildRequires:	libdrm-devel >= 2.4.46}
+BuildRequires:	libsamplerate-devel
 BuildRequires:	libtool >= 2:2.0
-%{?with_mir:BuildRequires:	mir-devel}
+%{?with_mir:BuildRequires:	mir-devel >= 0.26}
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	perl-modules
 BuildRequires:	pkgconfig >= 1:0.7
@@ -213,6 +226,7 @@ SDL - przykładowe programy.
 	%{!?with_altiveca:--disable-altivec} \
 	%{!?with_arts:--disable-arts} \
 	%{!?with_esd:--disable-esd} \
+	%{!?with_jack:--disable-jack} \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_nas:--disable-nas} \
 	--enable-pthreads \
@@ -223,9 +237,11 @@ SDL - przykładowe programy.
 	%{?with_sse:--enable-ssemath} \
 	%{!?with_static_libs:--disable-static} \
 	%{!?with_directfb:--disable-video-directfb} \
+	%{?with_kms:--enable-video-kmsdrm} \
 	--enable-video-mir%{!?with_mir:=no} \
 	--enable-video-opengl%{!?with_gl:=no} \
 	--enable-video-opengles%{!?with_gles:=no} \
+	--enable-video-vulkan%{!?with_vulkan:=no} \
 	--enable-video-wayland%{!?with_wayland:=no} \
 	--with-x
 
@@ -261,7 +277,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libSDL2.so
 %{_libdir}/libSDL2.la
 %{_libdir}/libSDL2_test.a
+%{_libdir}/libSDL2_test.la
 %{_libdir}/libSDL2main.a
+%{_libdir}/libSDL2main.la
 %{_includedir}/SDL2
 %{_aclocaldir}/sdl2.m4
 %{_pkgconfigdir}/sdl2.pc
