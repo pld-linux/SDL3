@@ -63,13 +63,14 @@ Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimedi
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
 Version:	2.0.8
-Release:	1
+Release:	2
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
 # Source0-md5:	3800d705cef742c6a634f202c37f263f
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-cflags.patch
+Patch2:		firewatch_fix.patch
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 9.0.0}
 %{?with_wayland:BuildRequires:	Mesa-libwayland-egl-devel}
@@ -215,6 +216,7 @@ SDL - przykładowe programy.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
