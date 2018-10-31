@@ -62,23 +62,21 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.8
-Release:	2
+Version:	2.0.9
+Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	3800d705cef742c6a634f202c37f263f
+# Source0-md5:	f2ecfba915c54f7200f504d8b48a5dfe
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-cflags.patch
-Patch2:		firewatch_fix.patch
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 9.0.0}
-%{?with_wayland:BuildRequires:	Mesa-libwayland-egl-devel}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
 %{?with_directfb:BuildRequires:	FusionSound-devel >= 1.1.1}
 %{?with_gl:BuildRequires:	OpenGL-GLX-devel}
 %{?with_gles:BuildRequires:	OpenGLES-devel}
-%{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
+%{?with_alsa:BuildRequires:	alsa-lib-devel >= 1.0.11}
 %{?with_arts:BuildRequires:	artsc-devel >= 1.1}
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
@@ -99,6 +97,7 @@ BuildRequires:	tslib-devel
 BuildRequires:	udev-devel
 # wayland-client, wayland-cursor
 %{?with_wayland:BuildRequires:	wayland-devel}
+%{?with_wayland:BuildRequires:	wayland-egl-devel}
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
 BuildRequires:	xorg-lib-libXcursor-devel
@@ -216,7 +215,6 @@ SDL - przykładowe programy.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
