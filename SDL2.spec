@@ -10,7 +10,6 @@
 %bcond_without	gl		# OpenGL (GLX) support
 %bcond_without	gles		# OpenGL ES (EGL) support
 %bcond_with	kms		# KMS/DRM graphics support
-%bcond_with	mir		# Mir graphics support
 %bcond_without	vulkan		# Vulkan graphics support
 %bcond_without	wayland		# Wayland graphics support
 %bcond_without	static_libs	# don't build static libraries
@@ -30,13 +29,12 @@
 # libfusionsound-*.so --needs patch (-release not supported by configure)
 # libgbm.so.1			[if with kms]
 # libjack.so.0			[if with jack]
-# libmirclient.so.9		[if with mir]
 # libpulse-simple.so.0
 # libsamplerate.so.0
 # libwayland-client.so.0	[if with wayland]
 # libwayland-cursor.so.0	[if with wayland]
 # libwayland-egl.so.1		[if with wayland]
-# libxkbcommon.so.0		[if with wayland or mir]
+# libxkbcommon.so.0		[if with wayland]
 # libX11.so.6
 # libXcursor.so.1
 # libXext.so.6
@@ -62,12 +60,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.9
+Version:	2.0.10
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	f2ecfba915c54f7200f504d8b48a5dfe
+# Source0-md5:	5a2114f2a6f348bdab5bf52b994811db
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-cflags.patch
 URL:		http://www.libsdl.org/
@@ -88,7 +86,6 @@ BuildRequires:	ibus-devel >= 1.0
 %{?with_kms:BuildRequires:	libdrm-devel >= 2.4.46}
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libtool >= 2:2.0
-%{?with_mir:BuildRequires:	mir-devel >= 0.26}
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	perl-modules
 BuildRequires:	pkgconfig >= 1:0.7
@@ -107,7 +104,7 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
-%if %{with mir} || %{with wayland}
+%if %{with wayland}
 BuildRequires:	xorg-lib-libxkbcommon-devel
 %endif
 BuildRequires:	xorg-proto-xextproto-devel
@@ -238,7 +235,6 @@ SDL - przykładowe programy.
 	%{!?with_static_libs:--disable-static} \
 	%{!?with_directfb:--disable-video-directfb} \
 	%{?with_kms:--enable-video-kmsdrm} \
-	--enable-video-mir%{!?with_mir:=no} \
 	--enable-video-opengl%{!?with_gl:=no} \
 	--enable-video-opengles%{!?with_gles:=no} \
 	--enable-video-vulkan%{!?with_vulkan:=no} \
