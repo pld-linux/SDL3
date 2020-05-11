@@ -7,7 +7,7 @@
 %bcond_with	arts		# aRts audio support
 %bcond_with	esd		# EsounD audio support
 %bcond_with	jack		# JACK audio support
-%bcond_without	gl		# OpenGL (GLX) support
+%bcond_without	opengl		# OpenGL (GLX) support
 %bcond_without	gles		# OpenGL ES (EGL) support
 %bcond_with	kms		# KMS/DRM graphics support
 %bcond_without	vulkan		# Vulkan graphics support
@@ -72,7 +72,7 @@ URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 9.0.0}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
 %{?with_directfb:BuildRequires:	FusionSound-devel >= 1.1.1}
-%{?with_gl:BuildRequires:	OpenGL-GLX-devel}
+%{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
 %{?with_gles:BuildRequires:	OpenGLES-devel}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 1.0.11}
 %{?with_arts:BuildRequires:	artsc-devel >= 1.1}
@@ -235,7 +235,7 @@ SDL - przykładowe programy.
 	%{!?with_static_libs:--disable-static} \
 	%{!?with_directfb:--disable-video-directfb} \
 	%{?with_kms:--enable-video-kmsdrm} \
-	--enable-video-opengl%{!?with_gl:=no} \
+	--enable-video-opengl%{!?with_opengl:=no} \
 	--enable-video-opengles%{!?with_gles:=no} \
 	--enable-video-vulkan%{!?with_vulkan:=no} \
 	--enable-video-wayland%{!?with_wayland:=no} \
