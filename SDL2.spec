@@ -1,4 +1,3 @@
-# TODO: fcitx
 #
 # Conditional build:
 %bcond_with	directfb	# DirectFB graphics support
@@ -12,6 +11,7 @@
 %bcond_with	kms		# KMS/DRM graphics support
 %bcond_without	vulkan		# Vulkan graphics support
 %bcond_without	wayland		# Wayland graphics support
+%bcond_without	fcitx		# Fcitx IM support
 %bcond_without	static_libs	# don't build static libraries
 %bcond_with	mmx		# MMX instructions
 %bcond_with	sse		# SSE instructions
@@ -61,7 +61,7 @@ Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimedi
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
 Version:	2.0.12
-Release:	1
+Release:	2
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
@@ -80,6 +80,7 @@ BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	dbus-devel
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
+%{?with_fcitx:BuildRequires:	fcitx-devel}
 BuildRequires:	gcc >= 5:4.0
 BuildRequires:	ibus-devel >= 1.0
 %{?with_jack:BuildRequires:	jack-audio-connection-kit-devel >= 0.125}
@@ -223,6 +224,7 @@ SDL - przykładowe programy.
 	%{!?with_altiveca:--disable-altivec} \
 	%{!?with_arts:--disable-arts} \
 	%{!?with_esd:--disable-esd} \
+	%{!?with_fcitx:--disable-fcitx} \
 	%{!?with_jack:--disable-jack} \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_nas:--disable-nas} \
