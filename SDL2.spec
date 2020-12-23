@@ -60,16 +60,16 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.12
-Release:	2
+Version:	2.0.14
+Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	783b6f2df8ff02b19bb5ce492b99c8ff
+# Source0-md5:	76ed4e6da9c07bd168b2acd9bfefab1b
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-cflags.patch
 URL:		http://www.libsdl.org/
-%{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 9.0.0}
+%{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
 %{?with_directfb:BuildRequires:	FusionSound-devel >= 1.1.1}
 %{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
@@ -82,16 +82,16 @@ BuildRequires:	dbus-devel
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 %{?with_fcitx:BuildRequires:	fcitx-devel}
 BuildRequires:	gcc >= 5:4.0
+BuildRequires:	hidapi-devel
 BuildRequires:	ibus-devel >= 1.0
 %{?with_jack:BuildRequires:	jack-audio-connection-kit-devel >= 0.125}
-%{?with_kms:BuildRequires:	libdrm-devel >= 2.4.46}
+%{?with_kms:BuildRequires:	libdrm-devel >= 1.4.82}
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libtool >= 2:2.0
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	perl-modules
 BuildRequires:	pkgconfig >= 1:0.7
 BuildRequires:	pulseaudio-devel >= 0.9
-BuildRequires:	tslib-devel
 BuildRequires:	udev-devel
 # wayland-client, wayland-cursor
 %{?with_wayland:BuildRequires:	wayland-devel}
@@ -148,7 +148,6 @@ Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) 开发库
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?with_directfb:Requires:	DirectFB-devel >= 1.0.0}
-Requires:	tslib-devel
 Requires:	xorg-lib-libX11-devel
 Suggests:	OpenGL-GLU-devel
 
