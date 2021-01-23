@@ -47,13 +47,13 @@
 %ifarch k6 athlon
 %define	with_3dnow	1
 %endif
-%ifarch %{x8664} pentium2 pentium3 pentium4 athlon
+%ifarch %{x8664} x32 pentium2 pentium3 pentium4 athlon
 %define	with_mmx	1
 %endif
-%ifarch %{x8664} pentium3 pentium4
+%ifarch %{x8664} x32 pentium3 pentium4
 %define	with_sse	1
 %endif
-%ifarch %{x8664} pentium4
+%ifarch %{x8664} x32 pentium4
 %define	with_sse2	1
 %endif
 Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
