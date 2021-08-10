@@ -60,17 +60,19 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.14
+Version:	2.0.16
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	76ed4e6da9c07bd168b2acd9bfefab1b
+# Source0-md5:	98b8a1535a757ea1d03ae44e2fb20247
 Patch0:		%{name}-config.patch
-Patch1:		%{name}-cflags.patch
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
+%if %{with opengl} || %{with gles}
+BuildRequires:	EGL-devel
+%endif
 %{?with_directfb:BuildRequires:	FusionSound-devel >= 1.1.1}
 %{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
 %{?with_gles:BuildRequires:	OpenGLES-devel}
@@ -90,11 +92,12 @@ BuildRequires:	libsamplerate-devel
 BuildRequires:	libtool >= 2:2.0
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	perl-modules
+BuildRequires:	pipewire-devel >= 0.3.20
 BuildRequires:	pkgconfig >= 1:0.7
 BuildRequires:	pulseaudio-devel >= 0.9
 BuildRequires:	udev-devel
 # wayland-client, wayland-cursor
-%{?with_wayland:BuildRequires:	wayland-devel}
+%{?with_wayland:BuildRequires:	wayland-devel >= 1.15}
 %{?with_wayland:BuildRequires:	wayland-egl-devel}
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
@@ -211,7 +214,6 @@ SDL - przykładowe programy.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -264,7 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 # non-Linux READMEs packaged for portability information
-%doc BUGS.txt COPYING.txt CREDITS.txt README*.txt TODO.txt WhatsNew.txt
+%doc BUGS.txt CREDITS.txt LICENSE.txt README*.txt TODO.txt WhatsNew.txt
 %attr(755,root,root) %{_libdir}/libSDL2-2.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libSDL2-2.0.so.0
 
