@@ -60,14 +60,13 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.16
-Release:	2
+Version:	2.0.18
+Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	98b8a1535a757ea1d03ae44e2fb20247
+# Source0-md5:	c1dd33299db5b7091f37d989c68d5212
 Patch0:		%{name}-config.patch
-Patch1:		wayland-sizeless-config.patch
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
@@ -110,7 +109,7 @@ BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
 %if %{with wayland}
-BuildRequires:	xorg-lib-libxkbcommon-devel
+BuildRequires:	xorg-lib-libxkbcommon-devel >= 0.5.0
 %endif
 BuildRequires:	xorg-proto-xextproto-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -215,7 +214,6 @@ SDL - przykładowe programy.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
