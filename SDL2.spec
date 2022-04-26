@@ -29,6 +29,7 @@
 # libfusionsound-*.so --needs patch (-release not supported by configure)
 # libgbm.so.1			[if with kms]
 # libjack.so.0			[if with jack]
+# libpipewire-0.3.so.0
 # libpulse-simple.so.0
 # libsamplerate.so.0
 # libwayland-client.so.0	[if with wayland]
