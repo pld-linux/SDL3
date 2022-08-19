@@ -41,11 +41,9 @@
 # libXcursor.so.1
 # libXext.so.6
 # libXi.so.6
-# libXinerama.so.1
 # libXrandr.so.2
 # libXrender.so.1
 # libXss.so.1
-# libXxf86vm.so.1
 %ifarch k6 athlon
 %define	with_3dnow	1
 %endif
@@ -62,12 +60,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.0.22
+Version:	2.24.0
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	40aedb499cb2b6f106d909d9d97f869a
+# Source0-md5:	cf539ffe9e0dd6f943ac9de75fd2e56e
 Patch0:		%{name}-config.patch
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
@@ -106,10 +104,8 @@ BuildRequires:	xorg-lib-libXScrnSaver-devel
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXi-devel
-BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
-BuildRequires:	xorg-lib-libXxf86vm-devel
 %if %{with wayland}
 BuildRequires:	xorg-lib-libxkbcommon-devel >= 0.5.0
 %endif
