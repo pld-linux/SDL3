@@ -60,14 +60,13 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.24.0
-Release:	2
+Version:	2.24.1
+Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	cf539ffe9e0dd6f943ac9de75fd2e56e
+# Source0-md5:	10bad2a286f155565edc611f41345de1
 Patch0:		%{name}-config.patch
-Patch1:		cmake-target.patch
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 1.0.0}
@@ -213,7 +212,6 @@ SDL - przykładowe programy.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
