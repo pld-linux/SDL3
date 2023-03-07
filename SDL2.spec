@@ -95,6 +95,7 @@ BuildRequires:	perl-modules
 BuildRequires:	pipewire-devel >= 0.3.20
 BuildRequires:	pkgconfig >= 1:0.7
 BuildRequires:	pulseaudio-devel >= 0.9
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	udev-devel
 # wayland-client, wayland-cursor
 %{?with_wayland:BuildRequires:	wayland-devel >= 1.18}
@@ -202,6 +203,7 @@ Summary(pl.UTF-8):	SDL - programy przykładowe
 License:	Public Domain
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+BuildArch:	noarch
 
 %description examples
 SDL - example programs.
