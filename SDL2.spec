@@ -9,6 +9,7 @@
 %bcond_without	opengl		# OpenGL (GLX) support
 %bcond_without	gles		# OpenGL ES (EGL) support
 %bcond_with	kms		# KMS/DRM graphics support
+%bcond_without	pipewire	# Pipewire audio support
 %bcond_without	vulkan		# Vulkan graphics support
 %bcond_without	wayland		# Wayland graphics support
 %bcond_without	fcitx		# Fcitx IM support
@@ -92,7 +93,7 @@ BuildRequires:	libsamplerate-devel
 BuildRequires:	libtool >= 2:2.0
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	perl-modules
-BuildRequires:	pipewire-devel >= 0.3.20
+%{?with_pipewire:BuildRequires:	pipewire-devel >= 0.3.20}
 BuildRequires:	pkgconfig >= 1:0.7
 BuildRequires:	pulseaudio-devel >= 0.9
 BuildRequires:	rpm-build >= 4.6
@@ -230,6 +231,7 @@ SDL - przykładowe programy.
 	%{!?with_jack:--disable-jack} \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_nas:--disable-nas} \
+	%{!?with_pipewire:--disable-pipewire} \
 	--enable-pthreads \
 	--enable-pthread-sem \
 	--disable-rpath \
