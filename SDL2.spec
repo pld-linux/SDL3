@@ -61,12 +61,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL2
-Version:	2.28.5
+Version:	2.30.0
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	a344eb827a03045c9b399e99af4af13d
+# Source0-md5:	3b0a35e1d794382dcd64d9da93870ea1
 Patch0:		%{name}-config.patch
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
@@ -79,7 +79,7 @@ BuildRequires:	EGL-devel
 %{?with_gles:BuildRequires:	OpenGLES-devel}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 1.0.11}
 %{?with_arts:BuildRequires:	artsc-devel >= 1.1}
-BuildRequires:	autoconf >= 2.59-9
+BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
 BuildRequires:	dbus-devel
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
@@ -95,7 +95,7 @@ BuildRequires:	libtool >= 2:2.0
 BuildRequires:	perl-modules
 %{?with_pipewire:BuildRequires:	pipewire-devel >= 0.3.20}
 BuildRequires:	pkgconfig >= 1:0.7
-BuildRequires:	pulseaudio-devel >= 0.9
+BuildRequires:	pulseaudio-devel >= 0.9.15
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	udev-devel
 # wayland-client, wayland-cursor
