@@ -9,7 +9,7 @@
 %bcond_without	vulkan		# Vulkan graphics support
 %bcond_without	wayland		# Wayland graphics support
 %bcond_without	ibus		# IBus IM support
-%bcond_without	static_libs	# don't build static libraries
+%bcond_without	static_libs	# static library
 %bcond_with	avx		# AVX instructions
 %bcond_with	avx2		# AVX2 instructions
 %bcond_with	avx512f		# AVX512F instructions
@@ -60,12 +60,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL3
-Version:	3.2.6
+Version:	3.2.8
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	2afa7b64f784216cde2c16bbebc544b1
+# Source0-md5:	285f86b00bea955bf521e91ba4c66d59
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %if %{with opengl} || %{with gles} || %{with wayland}
