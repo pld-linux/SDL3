@@ -8,7 +8,9 @@
 %bcond_without	pipewire	# Pipewire audio support
 %bcond_without	vulkan		# Vulkan graphics support
 %bcond_without	wayland		# Wayland graphics support
+%bcond_without	fribidi		# FriBidi support
 %bcond_without	ibus		# IBus IM support
+%bcond_without	libthai		# Thai support
 %bcond_without	static_libs	# static library
 %bcond_with	avx		# AVX instructions
 %bcond_with	avx2		# AVX2 instructions
@@ -26,10 +28,12 @@
 # libasound.so.2		[if with alsa]
 # libdecor-0.so.0		[if with wayland]
 # libdrm.so.2			[if with kms]
+# libfribidi.so.0		[if with fribidi]
 # libgbm.so.1			[if with kms]
 # libjack.so.0			[if with jack]
 # libpipewire-0.3.so.0
 # libpulse-simple.so.0
+# libthai.so.0			[if with libthai]
 # libudev.so.1
 # libusb-1.0.so.0
 # libwayland-client.so.0	[if with wayland]
@@ -44,6 +48,7 @@
 # libXrandr.so.2
 # libXrender.so.1
 # libXss.so.1
+# libXtst.so.6
 %ifarch %{x8664} x32 pentium2 pentium3 pentium4 athlon
 %define	with_mmx	1
 %endif
@@ -60,12 +65,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL3
-Version:	3.2.28
+Version:	3.4.0
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	7eedab7982f37bfdf342dc6d2dbd24ce
+# Source0-md5:	25cc9aade08c60e883b7accd87eb4600
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %if %{with opengl} || %{with gles} || %{with wayland}
@@ -78,11 +83,13 @@ BuildRequires:	EGL-devel
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 1.0.11}
 BuildRequires:	cmake >= 3.16
 BuildRequires:	dbus-devel
+%{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gcc >= 5:4.0
 %{?with_ibus:BuildRequires:	ibus-devel >= 1.0}
 %{?with_jack:BuildRequires:	jack-audio-connection-kit-devel >= 0.125}
 %{?with_wayland:BuildRequires:	libdecor-devel >= 0.2.0}
 %{?with_kms:BuildRequires:	libdrm-devel >= 1.4.82}
+%{?with_libthai:BuildRequires:	libthai-devel}
 BuildRequires:	liburing-ffi-devel
 BuildRequires:	libusb-devel >= 1.0.16
 BuildRequires:	perl-modules
@@ -103,6 +110,7 @@ BuildRequires:	xorg-lib-libXfixes-devel
 BuildRequires:	xorg-lib-libXi-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
+BuildRequires:	xorg-lib-libXtst-devel
 %if %{with wayland}
 BuildRequires:	xorg-lib-libxkbcommon-devel >= 0.5.0
 %endif
@@ -210,6 +218,7 @@ SDL - przykładowe programy.
 %setup -q
 
 %{__sed} -i -e '1s,.*env python\b,#!%{__python3},' test/emscripten/{driver,server}.py
+%{__sed} -i -e '1s,.*env bash\b,#!%{__bash},' test/{,testgpu/}build-shaders.sh
 
 %build
 %cmake -B build \
@@ -236,7 +245,9 @@ SDL - przykładowe programy.
 	%{cmake_on_off gles SDL_OPENGLES} \
 	%{cmake_on_off vulkan SDL_VULKAN} \
 	%{cmake_on_off wayland SDL_WAYLAND} \
-	-DSDL_X11:BOOL=ON
+	-DSDL_X11:BOOL=ON \
+	%{cmake_on_off fribidi SDL_FRIBIDI} \
+	%{cmake_on_off libthai SDL_LIBTHAI}
 
 %{__make} -C build
 
