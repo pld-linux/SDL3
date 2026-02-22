@@ -65,12 +65,12 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL3
-Version:	3.4.0
+Version:	3.4.2
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	25cc9aade08c60e883b7accd87eb4600
+# Source0-md5:	b488ea1ede947c06855588314effe905
 URL:		http://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %if %{with opengl} || %{with gles} || %{with wayland}
