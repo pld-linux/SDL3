@@ -97,7 +97,7 @@ BuildRequires:	perl-modules
 BuildRequires:	pkgconfig >= 1:0.7
 BuildRequires:	pulseaudio-devel >= 0.9.15
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 2.007
+BuildRequires:	rpmbuild(macros) >= 2.047
 BuildRequires:	udev-devel
 # wayland-client, wayland-cursor
 %{?with_wayland:BuildRequires:	wayland-devel >= 1.18}
