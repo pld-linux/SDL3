@@ -65,13 +65,13 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
 Summary(zh_CN.UTF-8):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		SDL3
-Version:	3.4.8
+Version:	3.4.10
 Release:	1
 License:	Zlib (BSD-like)
 Group:		Libraries
-Source0:	http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-# Source0-md5:	8b94230c2b257ba05d936e5bc5dcf5ab
-URL:		http://www.libsdl.org/
+Source0:	https://www.libsdl.org/release/%{name}-%{version}.tar.gz
+# Source0-md5:	8d8f2df5bc7818ec1080ce8e1611db9c
+URL:		https://www.libsdl.org/
 %{?with_kms:BuildRequires:	Mesa-libgbm-devel >= 11.1.0}
 %if %{with opengl} || %{with gles} || %{with wayland}
 BuildRequires:	EGL-devel
@@ -222,32 +222,32 @@ SDL - przykładowe programy.
 
 %build
 %cmake -B build \
-	%{cmake_on_off alsa SDL_ALSA} \
-	%{cmake_on_off altivec SDL_ALTIVEC} \
-	%{cmake_on_off neon SDL_ARMNEON} \
-	%{cmake_on_off avx SDL_AVX} \
-	%{cmake_on_off avx2 SDL_AVX2} \
-	%{cmake_on_off avx512f SDL_AVX512F} \
-	%{cmake_on_off ibus SDL_IBUS} \
-	%{cmake_on_off jack SDL_JACK} \
-	%{cmake_on_off mmx SDL_MMX} \
-	%{cmake_on_off pipewire SDL_PIPEWIRE} \
+	-DSDL_ALSA:BOOL=%{__ON_OFF alsa} \
+	-DSDL_ALTIVEC:BOOL=%{__ON_OFF altivec} \
+	-DSDL_ARMNEON:BOOL=%{__ON_OFF neon} \
+	-DSDL_AVX:BOOL=%{__ON_OFF avx} \
+	-DSDL_AVX2:BOOL=%{__ON_OFF avx2} \
+	-DSDL_AVX512F:BOOL=%{__ON_OFF avx512f} \
+	-DSDL_FRIBIDI:BOOL=%{__ON_OFF fribidi} \
+	-DSDL_IBUS:BOOL=%{__ON_OFF ibus} \
+	-DSDL_JACK:BOOL=%{__ON_OFF jack} \
+	-DSDL_KMSDRM:BOOL=%{__ON_OFF kms} \
+	-DSDL_LIBTHAI:BOOL=%{__ON_OFF libthai} \
+	-DSDL_MMX:BOOL=%{__ON_OFF mmx} \
+	-DSDL_OPENGL:BOOL=%{__ON_OFF opengl} \
+	-DSDL_OPENGLES:BOOL=%{__ON_OFF gles} \
+	-DSDL_PIPEWIRE:BOOL=%{__ON_OFF pipewire} \
 	-DSDL_PTHREADS:BOOL=ON \
 	-DSDL_PTHREADS_SEM:BOOL=ON \
 	-DSDL_RPATH:BOOL=OFF \
-	%{cmake_on_off sse SDL_SSE} \
-	%{cmake_on_off sse2 SDL_SSE2} \
-	%{cmake_on_off sse41 SDL_SSE4_1} \
-	%{cmake_on_off sse42 SDL_SSE4_2} \
-	%{cmake_on_off static_libs SDL_STATIC} \
-	%{cmake_on_off kms SDL_KMSDRM} \
-	%{cmake_on_off opengl SDL_OPENGL} \
-	%{cmake_on_off gles SDL_OPENGLES} \
-	%{cmake_on_off vulkan SDL_VULKAN} \
-	%{cmake_on_off wayland SDL_WAYLAND} \
-	-DSDL_X11:BOOL=ON \
-	%{cmake_on_off fribidi SDL_FRIBIDI} \
-	%{cmake_on_off libthai SDL_LIBTHAI}
+	-DSDL_SSE:BOOL=%{__ON_OFF sse} \
+	-DSDL_SSE2:BOOL=%{__ON_OFF sse2} \
+	-DSDL_SSE4_1:BOOL=%{__ON_OFF sse41} \
+	-DSDL_SSE4_2:BOOL=%{__ON_OFF sse42} \
+	-DSDL_STATIC:BOOL=%{__ON_OFF static_libs} \
+	-DSDL_VULKAN:BOOL=%{__ON_OFF vulkan} \
+	-DSDL_WAYLAND:BOOL=%{__ON_OFF wayland} \
+	-DSDL_X11:BOOL=ON
 
 %{__make} -C build
 
@@ -269,12 +269,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc BUGS.txt CREDITS.md LICENSE.txt README.md WhatsNew.txt
-%attr(755,root,root) %{_libdir}/libSDL3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libSDL3.so.0
+%{_libdir}/libSDL3.so.*.*.*
+%ghost %{_libdir}/libSDL3.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libSDL3.so
+%{_libdir}/libSDL3.so
 %{_libdir}/libSDL3_test.a
 %{_includedir}/SDL3
 %{_pkgconfigdir}/sdl3.pc
